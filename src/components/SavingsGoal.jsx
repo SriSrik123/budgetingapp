@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, LinearProgress, TextField, Button, Paper } from '@mui/material';
 import { Savings as SavingsIcon } from '@mui/icons-material';
 
 export default function SavingsGoal({ goal, onUpdate }) {
   const [editMode, setEditMode] = useState(false);
   const [currentAmount, setCurrentAmount] = useState(goal.currentAmount || '0');
+  useEffect(() => {
+    const savedAmount = localStorage.getItem(`savings_${goal.name}`);
+    if (savedAmount !== null) {
+      setCurrentAmount(savedAmount);
+    }
+  }, [goal.name]);
   
   const progress = goal.targetAmount > 0 
     ? (parseFloat(currentAmount) / parseFloat(goal.targetAmount)) * 100 
@@ -12,6 +18,7 @@ export default function SavingsGoal({ goal, onUpdate }) {
 
   const handleSave = () => {
     onUpdate(currentAmount);
+    localStorage.setItem(`savings_${goal.name}`, currentAmount);
     setEditMode(false);
   };
 

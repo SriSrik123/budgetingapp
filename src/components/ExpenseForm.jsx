@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, MenuItem, Grid, Select, InputLabel, FormControl } from '@mui/material';
 
 export default function ExpenseForm({ onAddExpense }) {
@@ -9,6 +9,12 @@ export default function ExpenseForm({ onAddExpense }) {
     category: '',
     dueDate: ''
   });
+  useEffect(() => {
+    const savedExpense = localStorage.getItem('expenseForm');
+    if (savedExpense) {
+      setExpense(JSON.parse(savedExpense));
+    }
+  }, []);
 
   const expenseCategories = {
     fixed: ['Rent/Mortgage', 'Utilities', 'Insurance', 'Subscriptions', 'Other'],
@@ -18,13 +24,16 @@ export default function ExpenseForm({ onAddExpense }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setExpense(prev => ({ ...prev, [name]: value }));
+    const newExpense = { ...expense, [name]: value };
+    setExpense(newExpense);
+    localStorage.setItem('expenseForm', JSON.stringify(newExpense));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (expense.name && expense.amount && expense.category) {
+      if (expense.name && expense.amount && expense.category) {
       onAddExpense(expense);
+      localStorage.removeItem('expenseForm');
       setExpense({
         name: '',
         amount: '',

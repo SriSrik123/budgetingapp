@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -14,9 +14,20 @@ export default function Income() {
   const [incomeSources, setIncomeSources] = useState([]);
   const [totalIncome, setTotalIncome] = useState(0);
 
+  useEffect(() => {
+    const savedSources = localStorage.getItem('incomeSources');
+    const savedTotal = localStorage.getItem('totalIncome');
+    if (savedSources) setIncomeSources(JSON.parse(savedSources));
+    if (savedTotal) setTotalIncome(parseFloat(savedTotal));
+  }, []);
+
   const handleAddIncome = (newIncome) => {
-    setIncomeSources([...incomeSources, newIncome]);
-    setTotalIncome(totalIncome + parseFloat(newIncome.amount));
+    const updatedSources = [...incomeSources, newIncome];
+    const updatedTotal = totalIncome + parseFloat(newIncome.amount);
+    setIncomeSources(updatedSources);
+    setTotalIncome(updatedTotal);
+    localStorage.setItem('incomeSources', JSON.stringify(updatedSources));
+    localStorage.setItem('totalIncome', updatedTotal.toString());
   };
 
   return (

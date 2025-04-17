@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, MenuItem, Grid } from '@mui/material';
 
 export default function IncomeForm({ onAddIncome }) {
@@ -7,22 +7,32 @@ export default function IncomeForm({ onAddIncome }) {
     amount: '',
     frequency: 'monthly'
   });
+  
+  useEffect(() => {
+    const savedIncome = localStorage.getItem('budgetForm');
+    if (savedIncome) {
+      setIncome(JSON.parse(savedIncome));
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setIncome(prev => ({ ...prev, [name]: value }));
+    const newIncome = { ...income, [name]: value };
+    setIncome(newIncome);
+    localStorage.setItem('budgetForm', JSON.stringify(newIncome));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (income.source && income.amount) {
-      onAddIncome(income);
-      setIncome({
-        source: '',
-        amount: '',
-        frequency: 'monthly'
-      });
-    }
+      if (income.source && income.amount) {
+        onAddIncome(income);
+        localStorage.removeItem('budgetForm');
+        setIncome({
+          source: '',
+          amount: '',
+          frequency: 'monthly'
+        });
+      }
   };
 
   return (

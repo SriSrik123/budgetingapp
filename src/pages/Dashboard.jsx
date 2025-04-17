@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Paper, Typography, Box } from '@mui/material';
 import BudgetSummary from '../components/BudgetSummary';
 
 export default function Dashboard() {
-  //const [income, setIncome] = useState(0);
-  //const [expenses, setExpenses] = useState(0);
-  //const [savings, setSavings] = useState(0);
+  const [income, setIncome] = useState(0);
+  const [expenses, setExpenses] = useState(0);
+  const [savings, setSavings] = useState(0);
 
-  const [income ] = useState(0);
-  const [expenses] = useState(0);
-  const [savings] = useState(0);
+  useEffect(() => {
+    const savedIncome = localStorage.getItem('totalIncome');
+    const savedExpenses = localStorage.getItem('totalExpenses');
+    const savedSavings = localStorage.getItem('totalSavings');
+    if (savedIncome) setIncome(parseFloat(savedIncome));
+    if (savedExpenses) setExpenses(parseFloat(savedExpenses));
+    if (savedSavings) setSavings(parseFloat(savedSavings));
+  }, []);
 
   return (
     <Box sx={{ p: 3, pb: 10 }}>
