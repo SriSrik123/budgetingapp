@@ -1,38 +1,142 @@
-.App {
-  text-align: center;
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif; /* Changed font */
+  background-color: #F8F9FA; /* Light gray background for light mode */
+  color: #212529; /* Dark text for light mode */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Dark mode overrides */
+body.dark-mode {
+  background-color: #121212; /* Dark background for dark mode */
+  color: #E0E0E0; /* Lighter text for dark mode */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* Navbar */
+.Navbar {
+  background-color: #0D6EFD; /* Primary blue for light mode */
   color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.App-link {
-  color: #61dafb;
+.Navbar a {
+  color: white;
+  font-size: 1.1rem;
+  text-decoration: none;
+  margin: 0 15px;
+  transition: color 0.3s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.Navbar a:hover {
+  color: #61dafb; /* Light blue on hover */
+}
+
+.Navbar button {
+  background-color: #61dafb; /* Light blue for light mode */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+}
+
+.Navbar button:hover {
+  background-color: #0A58CA; /* Darker blue on hover */
+}
+
+/* Dark mode navbar */
+body.dark-mode .Navbar {
+  background-color: #333333; /* Darker background for dark mode */
+}
+
+body.dark-mode .Navbar button {
+  background-color: #0D6EFD; /* Adjust button for dark mode */
+}
+
+body.dark-mode .Navbar a {
+  color: #E0E0E0; /* Light text for links in dark mode */
+}
+
+/* Card Styles */
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  font-size: 1.8rem;
+  color: #212529; /* Dark text for titles */
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Dark mode cards */
+body.dark-mode .card {
+  background-color: #444444; /* Dark card background for dark mode */
+  color: #E0E0E0; /* Light text inside cards for dark mode */
+}
+
+body.dark-mode .card h2 {
+  color: #E0E0E0; /* Light text for titles in dark mode */
+}
+
+/* Button Styles */
+button {
+  background-color: #0D6EFD; /* Primary blue for light mode */
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+button:hover {
+  background-color: #0A58CA; /* Darker blue for hover */
+}
+
+button:disabled {
+  background-color: #c4c4c4;
+}
+
+/* Dark mode buttons */
+body.dark-mode button {
+  background-color: #61dafb; /* Light blue for dark mode */
+}
+
+body.dark-mode button:hover {
+  background-color: #0A58CA; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .Navbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  to {
-    transform: rotate(360deg);
+
+  .Navbar a {
+    margin: 10px 0;
+  }
+
+  .content {
+    padding: 10px;
   }
 }
