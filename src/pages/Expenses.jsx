@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Paper, Tabs, Tab } from '@mui/material';
 import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
@@ -7,8 +7,20 @@ export default function Expenses() {
   const [expenses, setExpenses] = useState([]);
   const [tabValue, setTabValue] = useState(0);
 
+  useEffect(() => {
+    const stored = localStorage.getItem('expensesList');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      setExpenses(parsed);
+    }
+  }, []);
+
   const handleAddExpense = (newExpense) => {
-    setExpenses([...expenses, newExpense]);
+    const updatedExpenses = [...expenses, newExpense];
+    setExpenses(updatedExpenses);
+    const total = updatedExpenses.reduce((sum, exp) => sum + parseFloat(exp.amount || 0), 0);
+    localStorage.setItem('totalExpenses', total);
+    localStorage.setItem('expensesList', JSON.stringify(updatedExpenses));
   };
 
   const handleTabChange = (event, newValue) => {
