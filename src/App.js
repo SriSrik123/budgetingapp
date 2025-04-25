@@ -9,6 +9,10 @@ import Expenses from './pages/Expenses';
 import Savings from './pages/Savings';
 import Settings from './pages/Settings';
 import './App.css';
+import Signup from './pages/Signup';
+
+
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -43,6 +47,7 @@ function App() {
               <Route path="/income" element={<Income />} />
               <Route path="/expenses" element={<Expenses />} />
               <Route path="/savings" element={<Savings />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="/settings" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
             </Routes>
           </Container>

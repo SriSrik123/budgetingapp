@@ -48,6 +48,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         <BottomNavigationAction label="Expenses" icon={<Receipt />} component={Link} to="/expenses" />
         <BottomNavigationAction label="Savings" icon={<Savings />} component={Link} to="/savings" />
         <BottomNavigationAction label="Settings" icon={<Settings />} component={Link} to="/settings" />
+        <BottomNavigationAction label="Sign Up" icon={<Savings />} component={Link} to="/signup" />
       </BottomNavigation>
     </>
   );
