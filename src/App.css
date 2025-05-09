@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #F8F9FA;
+  color: #212529;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #E0E0E0;
+}
+
+.Navbar {
+  background-color: #0D6EFD;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Navbar a {
+  color: white;
+  font-size: 1.1rem;
+  text-decoration: none;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+.Navbar a:hover {
+  color: #61dafb;
+}
+
+.Navbar button {
+  background-color: #61dafb;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+}
+
+.Navbar button:hover {
+  background-color: #0A58CA;
+}
+
+body.dark-mode .Navbar {
+  background-color: #333333;
+}
+
+body.dark-mode .Navbar button {
+  background-color: #0D6EFD;
+}
+
+body.dark-mode .Navbar a {
+  color: #E0E0E0;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  font-size: 1.8rem;
+  color: #212529;
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #666;
+}
+
+body.dark-mode .card {
+  background-color: #444444;
+  color: #E0E0E0;
+}
+
+body.dark-mode .card h2 {
+  color: #E0E0E0;
+}
+
+button {
+  background-color: #0D6EFD;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+button:hover {
+  background-color: #0A58CA;
+}
+
+button:disabled {
+  background-color: #c4c4c4;
+}
+
+body.dark-mode button {
+  background-color: #61dafb;
+}
+
+body.dark-mode button:hover {
+  background-color: #0A58CA;
+}
+
+@media (max-width: 768px) {
+  .Navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .Navbar a {
+    margin: 10px 0;
+  }
+
+  .content {
+    padding: 10px;
+  }
+}
