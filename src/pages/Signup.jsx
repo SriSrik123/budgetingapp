@@ -10,14 +10,17 @@ export default function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    console.log('Submitting signup form...');
+
     try {
       const res = await axios.post('http://localhost:5000/signup', {
-        username,
-        password
+        user_name: username,
+        pass_code: password
       });
       setStatus(res.data.message);
       navigate('/');
     } catch (err) {
+      console.error('Signup error:', err);  // Log error for debugging
       setStatus('Signup failed. Try again.');
     }
   };
