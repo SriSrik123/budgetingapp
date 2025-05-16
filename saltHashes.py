@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, origins=["http://localhost:3000"])
 
 # Connect to MySQL database
 db = mysql.connector.connect(
@@ -21,11 +21,12 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 
 # Route for user registration
-@app.route('/register', methods=['POST'])
-def register():
+@app.route('/signup', methods=['POST'])
+def signup():
     data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+    print("Received signup data:", data)  # Debugging line
+    username = data.get('user_name')
+    password = data.get('pass_code')
 
     if not username or not password:
         return jsonify({"error": "Username and password required"}), 400
@@ -34,7 +35,7 @@ def register():
 
     try:
         cursor.execute(
-            "INSERT INTO users (username, password) VALUES (%s, %s)",
+            "INSERT INTO users (user_name, pass_code) VALUES (%s, %s)",
             (username, hashed_password)
         )
         db.commit()
@@ -46,14 +47,14 @@ def register():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+    username = data.get('user_name')
+    password = data.get('pass_code')
 
     if not username or not password:
         return jsonify({"error": "Username and password required"}), 400
 
     try:
-        cursor.execute("SELECT password FROM users WHERE username = %s", (username,))
+        cursor.execute("SELECT pass_code FROM users WHERE user_name = %s", (username,))
         result = cursor.fetchone()
 
         if result and check_password_hash(result[0], password):

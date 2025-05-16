@@ -12,7 +12,7 @@ export default function LoginPage() {
     // Dummy check — replace with real auth logic
     if (email === 'test@example.com' && password === 'password123') {
       alert('Login successful!');
-      // Redirect or set login state here
+      // direct or set login state here
     } else {
       setError('Invalid email or password');
     }

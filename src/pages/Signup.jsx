@@ -17,10 +17,19 @@ export default function Signup() {
         user_name: username,
         pass_code: password
       });
+      console.log('Signup response:', res);
+      if (res.status === 201){
+        setStatus('Signup Successful!');
+        navigate('/');  // Redirect to home page on successful signup
+      }
+      else{
+        setStatus('Signup failed, Try again')
+      }
+
       setStatus(res.data.message);
       navigate('/');
     } catch (err) {
-      console.error('Signup error:', err);  // Log error for debugging
+      console.error('Signup error:', err.response?.data || err.message);  // Log error for debugging
       setStatus('Signup failed. Try again.');
     }
   };
