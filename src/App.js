@@ -9,6 +9,7 @@ import Expenses from './pages/Expenses';
 import Savings from './pages/Savings';
 import Settings from './pages/Settings';
 import Login from './pages/login'; 
+import Contact from './pages/Contact';
 
 import './App.css';
 import Signup from './pages/Signup';
@@ -52,6 +53,7 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} /> 
               <Route path="/settings" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+              <Route path="/contact" element={<Contact />} />
             </Routes>
           </Container>
         </div>

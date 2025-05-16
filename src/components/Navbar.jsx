@@ -14,7 +14,8 @@ import {
   Receipt, 
   Settings,
   Brightness4,
-  Brightness7
+  Brightness7,
+  ContactMail
 } from '@mui/icons-material';
 
 export default function Navbar({ darkMode, toggleDarkMode }) {
@@ -48,6 +49,7 @@ export default function Navbar({ darkMode, toggleDarkMode }) {
         <BottomNavigationAction label="Expenses" icon={<Receipt />} component={Link} to="/expenses" />
         <BottomNavigationAction label="Savings" icon={<Savings />} component={Link} to="/savings" />
         <BottomNavigationAction label="Settings" icon={<Settings />} component={Link} to="/settings" />
+        <BottomNavigationAction label="Contact" icon={<ContactMail />} component={Link} to="/contact" />
         <BottomNavigationAction label="Sign Up" icon={<Savings />} component={Link} to="/signup" />
       </BottomNavigation>
     </>
