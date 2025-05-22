@@ -20,7 +20,6 @@ export default function Signup() {
       console.log('Signup response:', res);
       if (res.status === 201){
         setStatus('Signup Successful!');
-        navigate('/');  // Redirect to home page on successful signup
       }
       else{
         setStatus('Signup failed, Try again')

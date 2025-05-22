@@ -2,27 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Paper, Tabs, Tab } from '@mui/material';
 import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Expenses() {
   const [expenses, setExpenses] = useState([]);
@@ -52,18 +32,15 @@ export default function Expenses() {
   const variableExpenses = expenses.filter(exp => exp.type === 'variable');
   const debtExpenses = expenses.filter(exp => exp.type === 'debt');
 
-  const chartData = {
-    labels: expenses.map((exp, i) => `Expense ${i + 1}`),
-    datasets: [
-      {
-        label: 'Expense Amount ($)',
-        data: expenses.map(exp => parseFloat(exp.amount || 0)),
-        fill: false,
-        borderColor: 'rgb(255, 99, 132)',
-        tension: 0.1,
-      },
-    ],
-  };
+  const categoryTotals = expenses.reduce((acc, exp) => {
+    acc[exp.category] = (acc[exp.category] || 0) + parseFloat(exp.amount || 0);
+    return acc;
+  }, {});
+  
+  const pieChartData = Object.entries(categoryTotals).map(([category, total]) => ({
+    name: category,
+    value: total,
+  }));
 
   return (
     <Box sx={{ p: 3, pb: 10 }}>
@@ -86,18 +63,40 @@ export default function Expenses() {
         </Grid>
         
         <Grid item xs={12} md={7}>
-          <Paper elevation={3} sx={{ p: 2 }}>
-            {tabValue === 0 && <ExpenseList expenses={expenses} title="All Expenses" />}
-            {tabValue === 1 && <ExpenseList expenses={fixedExpenses} title="Fixed Expenses" />}
-            {tabValue === 2 && <ExpenseList expenses={variableExpenses} title="Variable Expenses" />}
-            {tabValue === 3 && <ExpenseList expenses={debtExpenses} title="Debt/Loans" />}
-          </Paper>
-          <Paper elevation={3} sx={{ p: 2, mt: 2 }}>
-            <Typography variant="h6" gutterBottom>
-              Expense Overview Chart
-            </Typography>
-            <Line data={chartData} />
-          </Paper>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={7}>
+              <Paper elevation={3} sx={{ p: 2 }}>
+                {tabValue === 0 && <ExpenseList expenses={expenses} title="All Expenses" />}
+                {tabValue === 1 && <ExpenseList expenses={fixedExpenses} title="Fixed Expenses" />}
+                {tabValue === 2 && <ExpenseList expenses={variableExpenses} title="Variable Expenses" />}
+                {tabValue === 3 && <ExpenseList expenses={debtExpenses} title="Debt/Loans" />}
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <Typography variant="h6" gutterBottom>
+                Expense Overview by Category
+              </Typography>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={pieChartData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    fill="#8884d8"
+                    label
+                  >
+                    {pieChartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={`hsl(${(index / pieChartData.length) * 360}, 70%, 50%)`} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Box>

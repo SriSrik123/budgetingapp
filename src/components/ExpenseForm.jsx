@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, MenuItem, Grid, Select, InputLabel, FormControl } from '@mui/material';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function ExpenseForm({ onAddExpense }) {
   const [expense, setExpense] = useState({
@@ -44,12 +45,23 @@ export default function ExpenseForm({ onAddExpense }) {
     }
   };
 
+  const chartData = Object.entries(
+    expenseCategories[expense.type].reduce((acc, category) => {
+      acc[category] = 0;
+      return acc;
+    }, {})
+  ).map(([key, value]) => ({
+    name: key,
+    value: expense.category === key ? parseFloat(expense.amount || 0) : 0,
+  }));
+
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
             fullWidth
+            size="small"
             label="Expense Name"
             name="name"
             value={expense.name}
@@ -61,6 +73,7 @@ export default function ExpenseForm({ onAddExpense }) {
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
+            size="small"
             label="Amount"
             name="amount"
             type="number"
@@ -72,7 +85,7 @@ export default function ExpenseForm({ onAddExpense }) {
         </Grid>
         
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth size="small">
             <InputLabel>Type</InputLabel>
             <Select
               name="type"
@@ -88,7 +101,7 @@ export default function ExpenseForm({ onAddExpense }) {
         </Grid>
         
         <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
+          <FormControl fullWidth size="small">
             <InputLabel>Category</InputLabel>
             <Select
               name="category"
@@ -106,6 +119,7 @@ export default function ExpenseForm({ onAddExpense }) {
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
+            size="small"
             label="Due Date (optional)"
             name="dueDate"
             type="date"
@@ -119,6 +133,27 @@ export default function ExpenseForm({ onAddExpense }) {
           <Button type="submit" variant="contained" fullWidth>
             Add Expense
           </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie
+                data={chartData}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                fill="#8884d8"
+                label
+              >
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={`hsl(${(index / chartData.length) * 360}, 70%, 50%)`} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
         </Grid>
       </Grid>
     </form>
