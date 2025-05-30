@@ -1,5 +1,3 @@
-//App.js
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Container } from '@mui/material';

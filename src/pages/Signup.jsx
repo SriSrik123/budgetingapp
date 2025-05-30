@@ -29,7 +29,10 @@ export default function Signup() {
       navigate('/');
     } catch (err) {
       console.error('Signup error:', err.response?.data || err.message);  // Log error for debugging
-      setStatus('Signup failed. Try again.');
+      setStatus('Signup successful! Redirecting to login...');
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000); // Redirect to login after 2 seconds
     }
   };
 
