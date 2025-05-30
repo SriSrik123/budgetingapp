@@ -6,8 +6,8 @@ import {
   Box,
   AppBar,
   Toolbar,
-  IconButton,
-  Container
+  Container,
+  Button
 } from '@mui/material';
 import BudgetSummary from '../components/BudgetSummary';
 import { Line } from 'react-chartjs-2';
@@ -21,7 +21,6 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import MenuIcon from '@mui/icons-material/Menu';
 
 ChartJS.register(
   CategoryScale,
@@ -37,6 +36,26 @@ export default function Dashboard() {
   const [income, setIncome] = useState(0);
   const [expenses, setExpenses] = useState(0);
   const [savings, setSavings] = useState(0);
+
+  const funFacts = [
+    "People who budget save an average of 20% more each year than those who don't.",
+    "Using cash instead of a card can help reduce impulse spending by up to 30%.",
+    "50% of Americans don't have a budget — but those who do feel more in control of their finances.",
+    "Budgeting just 10 minutes a week can lead to major improvements in savings and debt reduction.",
+    "Creating a grocery budget can reduce monthly food expenses by up to 25%.",
+    "The 50/30/20 rule is a popular budgeting method: 50% needs, 30% wants, 20% savings."
+  ];
+
+  const getRandomFact = () => {
+    const randomIndex = Math.floor(Math.random() * funFacts.length);
+    return funFacts[randomIndex];
+  };
+
+  const [currentFact, setCurrentFact] = useState(getRandomFact());
+
+  const handleNewFact = () => {
+    setCurrentFact(getRandomFact());
+  };
 
   useEffect(() => {
     const savedIncome = localStorage.getItem('totalIncome');
@@ -67,7 +86,7 @@ export default function Dashboard() {
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Box display="flex" alignItems="center">
             <img
-              src="logo192.png" 
+              src="logo192.png"
               alt="Logo"
               style={{ height: 40, marginRight: 10 }}
             />
@@ -89,7 +108,7 @@ export default function Dashboard() {
         <Typography variant="body1">
           Our mission is to help users take control of their finances by tracking income,
           expenses, and savings all in one place. Managing your money shouldn’t be stressful or complicated.
-           Our budgeting app simplifies the way you track your spending, set savings goals, and plan for the future.
+          Our budgeting app simplifies the way you track your spending, set savings goals, and plan for the future.
         </Typography>
       </Container>
 
@@ -115,6 +134,25 @@ export default function Dashboard() {
             </Paper>
           </Grid>
 
+          {/* Fun Fact Section */}
+          <Grid item xs={12}>
+            <Paper elevation={3} sx={{ p: 2, backgroundColor: '#e8f5e9' }}>
+              <Typography variant="h6" gutterBottom>
+                💡 Budgeting Fun Fact
+              </Typography>
+              <Typography variant="body1">{currentFact}</Typography>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={handleNewFact}
+                sx={{ mt: 2 }}
+              >
+                🔁 New Fact
+              </Button>
+            </Paper>
+          </Grid>
+
+          {/* Chart */}
           <Grid item xs={12}>
             <Paper elevation={3} sx={{ p: 2 }}>
               <Typography variant="h6" gutterBottom>
