@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Container } from '@mui/material';
 import { lightTheme, darkTheme } from './theme';
 import Navbar from './components/Navbar';
@@ -41,24 +41,16 @@ function App() {
         <div className="App">
           <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
           <Container maxWidth="lg" className="content">
-            <Switch>
-              <Route exact path="/" component={Dashboard} />
-              <Route path="/income" component={Income} />
-              <Route path="/expenses" component={Expenses} />
-              <Route path="/savings" component={Savings} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />
-              <Route
-                path="/settings"
-                render={() => (
-                  <Settings
-                    darkMode={darkMode}
-                    toggleDarkMode={toggleDarkMode}
-                  />
-                )}
-              />
-              <Route path="/contact" component={Contact} />
-            </Switch>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/income" element={<Income />} />
+              <Route path="/expenses" element={<Expenses />} />
+              <Route path="/savings" element={<Savings />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/settings" element={<Settings darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
           </Container>
         </div>
       </Router>
