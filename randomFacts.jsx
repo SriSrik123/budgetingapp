@@ -22,10 +22,10 @@ const FunFact = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-center p-4 bg-green-100 rounded-lg shadow-md max-w-md mx-auto">
+    <div className="flex flex-col items-center text-center p-4 bg-green-100 rounded-lg shadow-md max-w-md mx-auto relative">
       <h2 className="text-xl font-bold mb-2">💡 Budgeting Fun Fact</h2>
-      <div className="mb-4 h-[100px] flex items-center justify-center text-center overflow-hidden">
-        {currentFact}
+      <div className="mb-4 h-[100px] flex justify-center items-center text-center">
+        <p className="px-2">{currentFact}</p>
       </div>
       <button
         onClick={handleNewFact}

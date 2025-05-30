@@ -110,7 +110,7 @@ button:disabled {
 }
 
 body.dark-mode button {
-  background-color: #61dafb;
+  background-color: #0D6EFD;
 }
 
 body.dark-mode button:hover {
@@ -130,4 +130,54 @@ body.dark-mode button:hover {
   .content {
     padding: 10px;
   }
+}
+
+/* Additional dark mode overrides */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode label,
+body.dark-mode input,
+body.dark-mode textarea {
+  color: #E0E0E0;
+}
+
+
+body.dark-mode .fact-box,
+body.dark-mode .content,
+body.dark-mode .MuiContainer-root,
+body.dark-mode .MuiPaper-root {
+  background-color: #2c2c2c !important;
+  color: #E0E0E0 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .card,
+body.dark-mode .summary-box,
+body.dark-mode .transactions-box,
+body.dark-mode .fact-box {
+  background-color: #2d2d2d !important;
+  color: #E0E0E0 !important;
+  border: 1px solid #444;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="number"],
+body.dark-mode input[type="email"],
+body.dark-mode textarea {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode #root,
+body.dark-mode .App,
+body.dark-mode .main-container {
+  background-color: #121212 !important;
 }
