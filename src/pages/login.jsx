@@ -9,10 +9,9 @@ export default function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Dummy check — replace with real auth logic
     if (email === 'test@example.com' && password === 'password123') {
       alert('Login successful!');
-      // direct or set login state here
+
     } else {
       setError('Invalid email or password');
     }
